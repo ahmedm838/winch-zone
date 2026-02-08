@@ -6,6 +6,8 @@ import { fetchCustomers, fetchMasters, Customer, SimpleRow } from "./_shared";
 import { fmtDate, fmtMoney } from "../../lib/format";
 import { getMyRole } from "../../lib/auth";
 
+type CollectionRow = { id: number; name: string };
+
 type TripRow = {
   id: number;
   trip_date: string;
@@ -37,14 +39,34 @@ export default function TripEdit() {
   const [newDropoff, setNewDropoff] = useState<File[]>([]);
 
 useEffect(() => {
-  getMyRole().then((r) => setIsAdmin(r === "admin")).catch(() => setIsAdmin(false));
-  supabase.from("collection").select("id,name").order("id").then(({ data }) => setCollections((data ?? []) as any)).catch(() => {});
-  Promise.all([fetchMasters(), fetchCustomers()]).then(([m, c]) => {
+  (async () => {
+    try {
+      const role = await getMyRole();
+      setIsAdmin(role === "admin");
+    } catch {
+      setIsAdmin(false);
+    }
 
-      setMasters(m); setCustomers(c);
-    }).catch((e) => setMsg(e?.message ?? "Failed to load"));
-    refreshTrips();
-  }, []);
+    try {
+      const { data } = await supabase.from("collection").select("id,name").order("id");
+      setCollections((data ?? []) as CollectionRow[]);
+    } catch {
+      setCollections([]);
+    }
+
+    try {
+      const [m, c] = await Promise.all([fetchMasters(), fetchCustomers()]);
+      setMasters(m);
+      setCustomers(c);
+    } catch (e: any) {
+      setMsg(e?.message ?? "Failed to load");
+    }
+
+    await refreshTrips();
+  })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+
 
   async function refreshTrips() {
     setMsg(null);
@@ -58,27 +80,34 @@ useEffect(() => {
   }
 
   useEffect(() => {
-    const r = trips.find((t) => t.id === selectedId) ?? null;
-    setRow(r);
-  }, [selectedId, trips]);
+  const r = trips.find((t) => t.id === selectedId) ?? null;
+  setRow(r);
+  setCollectionId(r?.collection_id ?? null);
+}, [selectedId, trips]);
 
-    const canEditCollection = isAdmin;
+
+  const canEditCollection = isAdmin;
   const canEdit = row?.status === "pending";
 
   async function save() {
     if (!row) return;
     setBusy(true); setMsg(null);
     try {
-      const { error } = await supabase.from("trips").update({
-        trip_date: row.trip_date,
-        customer_id: row.customer_id,
-        service_id: row.service_id,
-        vehicle_id: row.vehicle_id,
-        pickup_location: row.pickup_location,
-        dropoff_location: row.dropoff_location,
-        price_per_trip: row.price_per_trip,
-        payment_id: row.payment_id,
-      }).eq("id", row.id);
+      const payload: any = {};
+      if (canEdit) {
+        payload.trip_date = row.trip_date;
+        payload.customer_id = row.customer_id;
+        payload.service_id = row.service_id;
+        payload.vehicle_id = row.vehicle_id;
+        payload.pickup_location = row.pickup_location;
+        payload.dropoff_location = row.dropoff_location;
+        payload.price_per_trip = row.price_per_trip;
+        payload.payment_id = row.payment_id;
+      }
+      if (isAdmin) payload.collection_id = collectionId;
+
+      const { error } = await supabase.from("trips").update(payload
+).eq("id", row.id);
       if (error) throw error;
       setMsg("Saved.");
       await refreshTrips();
@@ -93,7 +122,7 @@ useEffect(() => {
     <div className="space-y-5">
       <div>
         <div className="text-xl font-semibold text-slate-900 dark:text-slate-100">Edit trip</div>
-        <div className="text-xs text-slate-500">Editing is blocked after approval.</div>
+        <div className="text-xs text-slate-500">Editing is blocked after approval (except Collection status for Admin).</div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-3 md:items-center">

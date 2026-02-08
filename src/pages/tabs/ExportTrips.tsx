@@ -4,6 +4,11 @@ import { supabase } from "../../lib/supabase";
 import { fetchCustomers, Customer } from "./_shared";
 import { fmtDate, fmtMoney } from "../../lib/format";
 
+function relText(rel: any): string {
+  const n = relName(rel);
+  return n === "—" ? "" : n;
+}
+
 function relName(rel: any): string {
   if (!rel) return "—";
   if (Array.isArray(rel)) return rel?.[0]?.name ?? "—";
@@ -17,11 +22,11 @@ type Row = {
   dropoff_location: string;
   price_per_trip: number;
   status: string;
-  customers?: { name: string }[] | null;
-  services?: { name: string }[] | null;
-  vehicles?: { name: string }[] | null;
-  payments?: { name: string }[] | null;
-  collection?: { name: string }[] | null;
+  customers?: { name: string }[] | { name: string } | null;
+  services?: { name: string }[] | { name: string } | null;
+  vehicles?: { name: string }[] | { name: string } | null;
+  payments?: { name: string }[] | { name: string } | null;
+  collection?: { name: string }[] | { name: string } | null;
 };
 
 export default function ExportTrips() {
@@ -53,19 +58,27 @@ export default function ExportTrips() {
     }
   }
 
-  const exportable = useMemo(() => rows.map(r => ({
-    TripID: r.id,
-    Date: fmtDate(r.trip_date),
-    Customer: r.customers?.[0]?.name ?? "",
-    Service: r.services?.[0]?.name ?? "",
-    Vehicle: r.vehicles?.[0]?.name ?? "",
-    Pickup: r.pickup_location,
-    Dropoff: r.dropoff_location,
-    Price: r.price_per_trip,
-    PriceFormatted: fmtMoney(r.price_per_trip),
-    Payment: r.payments?.[0]?.name ?? "",
-    Status: r.status,
-  })), [rows]);
+  const exportable = useMemo(
+  () =>
+    rows.map((r) => ({
+      TripID: r.id,
+      Date: fmtDate(r.trip_date),
+      Customer: relText(r.customers),
+      ContactPickup: r.pickup_location ?? "",
+      ContactDropoff: r.dropoff_location ?? "",
+      Service: relText(r.services),
+      Vehicle: relText(r.vehicles),
+      Pickup: r.pickup_location ?? "",
+      Dropoff: r.dropoff_location ?? "",
+      Price: r.price_per_trip ?? 0,
+      PriceFormatted: fmtMoney(r.price_per_trip ?? 0),
+      Payment: relText(r.payments),
+      Collection: relText(r.collection),
+      Status: r.status ?? "",
+    })),
+  [rows]
+);
+
 
   function exportExcel() {
     const ws = XLSX.utils.json_to_sheet(exportable);
@@ -127,11 +140,10 @@ export default function ExportTrips() {
                 <td className="p-3">{fmtMoney(r.price_per_trip)}</td>
                 <td className="p-3">{relName(r.payments)}</td>
                 <td className="p-3">{relName(r.collection)}</td>
-                <td className="p-3"></td>
                 <td className="p-3">{r.status}</td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className="p-4 text-slate-500" colSpan={7}>No data loaded.</td></tr> : null}
+            {!rows.length ? <tr><td className="p-4 text-slate-500" colSpan={8}>No data loaded.</td></tr> : null}
           </tbody>
         </table>
       </div>

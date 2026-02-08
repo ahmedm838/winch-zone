@@ -4,6 +4,7 @@ import { UploadBox } from "../../components/UploadBox";
 import { uploadToBucket } from "./_shared";
 import { fetchCustomers, fetchMasters, Customer, SimpleRow } from "./_shared";
 import { fmtDate, fmtMoney } from "../../lib/format";
+import { getMyRole } from "../../lib/auth";
 
 type TripRow = {
   id: number;
@@ -29,11 +30,17 @@ export default function TripEdit() {
   const [row, setRow] = useState<TripRow | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [collections, setCollections] = useState<CollectionRow[]>([]);
+  const [collectionId, setCollectionId] = useState<number | null>(null);
   const [newPickup, setNewPickup] = useState<File[]>([]);
   const [newDropoff, setNewDropoff] = useState<File[]>([]);
 
-  useEffect(() => {
-    Promise.all([fetchMasters(), fetchCustomers()]).then(([m, c]) => {
+useEffect(() => {
+  getMyRole().then((r) => setIsAdmin(r === "admin")).catch(() => setIsAdmin(false));
+  supabase.from("collection").select("id,name").order("id").then(({ data }) => setCollections((data ?? []) as any)).catch(() => {});
+  Promise.all([fetchMasters(), fetchCustomers()]).then(([m, c]) => {
+
       setMasters(m); setCustomers(c);
     }).catch((e) => setMsg(e?.message ?? "Failed to load"));
     refreshTrips();
@@ -55,7 +62,7 @@ export default function TripEdit() {
     setRow(r);
   }, [selectedId, trips]);
 
-  const canEditCollection = isAdmin;
+    const canEditCollection = isAdmin;
   const canEdit = row?.status === "pending";
 
   async function save() {
@@ -185,7 +192,7 @@ export default function TripEdit() {
     className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2 disabled:opacity-60"
   >
     <option value="">—</option>
-    {collections.map((c) => (
+    {collections.map((c: CollectionRow) => (
       <option key={c.id} value={c.id}>{c.name}</option>
     ))}
   </select>

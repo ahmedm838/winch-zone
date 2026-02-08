@@ -108,7 +108,7 @@ export default function Landing() {
 
           {msg ? <div className="text-sm text-slate-700 dark:text-slate-200">{msg}</div> : null}
 
-          <button disabled={busy} className="w-full rounded-xl px-3 py-2 text-sm bg-slate-900 text-white hover:opacity-90 disabled:opacity-60">
+          <button disabled={busy} className="w-full rounded-xl px-3 py-2 text-sm bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
             {busy ? "Please wait..." : mode==="login" ? "Login" : mode==="signup" ? "Create account" : "Send reset email"}
           </button>
         </form>

@@ -185,7 +185,7 @@ if (pu.length || dof.length) {
 
       {msg ? <div className="text-sm text-slate-700 dark:text-slate-200">{msg}</div> : null}
 
-      <button disabled={busy} onClick={onSave} className="rounded-xl px-4 py-2 text-sm bg-slate-900 text-white hover:opacity-90 disabled:opacity-60">
+      <button disabled={busy} onClick={onSave} className="rounded-xl px-4 py-2 text-sm bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
         {busy ? "Saving..." : "Save trip"}
       </button>
     </div>

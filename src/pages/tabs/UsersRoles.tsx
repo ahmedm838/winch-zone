@@ -68,7 +68,7 @@ export default function UsersRoles() {
                         Set User
                       </button>
                       <button disabled={busy} onClick={() => setRole(r.user_id, 1)}
-                        className="rounded-xl px-3 py-2 text-xs bg-slate-900 text-white hover:opacity-90 disabled:opacity-60">
+                        className="rounded-xl px-3 py-2 text-xs bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
                         Set Admin
                       </button>
                     </div>

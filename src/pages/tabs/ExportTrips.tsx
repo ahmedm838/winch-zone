@@ -70,8 +70,7 @@ export default function ExportTrips() {
       Vehicle: relText(r.vehicles),
       Pickup: r.pickup_location ?? "",
       Dropoff: r.dropoff_location ?? "",
-      Price: r.price_per_trip ?? 0,
-      PriceFormatted: fmtMoney(r.price_per_trip ?? 0),
+PriceFormatted: fmtMoney(r.price_per_trip ?? 0),
       Payment: relText(r.payments),
       Collection: relText(r.collection),
       Status: r.status ?? "",
@@ -115,7 +114,7 @@ export default function ExportTrips() {
         </div>
         <div className="flex items-end gap-2">
           <button onClick={load} className="rounded-xl px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900">Load</button>
-          <button onClick={exportExcel} disabled={!rows.length} className="rounded-xl px-3 py-2 text-sm bg-slate-900 text-white hover:opacity-90 disabled:opacity-60">Export Excel</button>
+          <button onClick={exportExcel} disabled={!rows.length} className="rounded-xl px-3 py-2 text-sm bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">Export Excel</button>
         </div>
       </div>
 

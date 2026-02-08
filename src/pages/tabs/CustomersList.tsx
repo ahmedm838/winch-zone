@@ -102,7 +102,7 @@ function Row({ row, onSave }: { row: Customer; onSave: (id: string, patch: Parti
       <td className="p-3">{row.tax_id_copy_url ? <a className="text-blue-600 dark:text-blue-400 underline" href={row.tax_id_copy_url} target="_blank" rel="noreferrer">Open</a> : <span className="text-slate-500">—</span>}</td>
       <td className="p-3">{row.price_list_copy_url ? <a className="text-blue-600 dark:text-blue-400 underline" href={row.price_list_copy_url} target="_blank" rel="noreferrer">Open</a> : <span className="text-slate-500">—</span>}</td>
       <td className="p-3">
-        <button className="rounded-xl px-3 py-2 text-xs bg-slate-900 text-white hover:opacity-90 disabled:opacity-60"
+        <button className="rounded-xl px-3 py-2 text-xs bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60"
           disabled={!validCr || !validTax || !validEmail || !validTel}
           onClick={() => onSave(row.id, { name: name.trim() || row.name, contact_name: contact || null, telephone: tel || null, email: email || null, commercial_register_no: cr || null, tax_id_no: tax || null })}
         >

@@ -67,7 +67,7 @@ export default function CustomersList() {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((r) => (<Row key={r.id} row={r} onSave={saveRow} />))}
+            {filtered.map((r) => (<Row key={(r as any).trip_no ?? r.id} row={r} onSave={saveRow} />))}
             {!filtered.length ? (
               <tr><td className="p-4 text-slate-500" colSpan={9}>No customers</td></tr>
             ) : null}

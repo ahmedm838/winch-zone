@@ -72,7 +72,7 @@ useEffect(() => {
     setMsg(null);
     const { data, error } = await supabase
       .from("trips")
-      .select("id,trip_date,status,customer_id,service_id,vehicle_id,pickup_location,dropoff_location,price_per_trip,payment_id,collection_id,pickup_photos,dropoff_photos")
+      .select("id,trip_no,trip_date,status,customer_id,service_id,vehicle_id,pickup_location,dropoff_location,price_per_trip,payment_id,collection_id,pickup_photos,dropoff_photos")
       .order("id", { ascending: false })
       .limit(200);
     if (error) return setMsg(error.message);

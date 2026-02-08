@@ -43,7 +43,7 @@ export default function ExportTrips() {
     setMsg(null);
     try {
       let q = supabase.from("trips")
-        .select("id,trip_date,pickup_location,dropoff_location,price_per_trip,status, customers(name), services(name), vehicles(name), payments(name),collection(name)")
+        .select("id,trip_no,trip_date,pickup_location,dropoff_location,price_per_trip,status, customers(name), services(name), vehicles(name), payments(name),collection(name)")
         .order("id", { ascending: false });
 
       if (customerId) q = q.eq("customer_id", customerId);
@@ -61,7 +61,7 @@ export default function ExportTrips() {
   const exportable = useMemo(
   () =>
     rows.map((r) => ({
-      TripID: r.id,
+      TripNo: (r.trip_no ?? String(r.id)),
       Date: fmtDate(r.trip_date),
       Customer: relText(r.customers),
       ContactPickup: r.pickup_location ?? "",
@@ -131,8 +131,8 @@ PriceFormatted: fmtMoney(r.price_per_trip ?? 0),
           </thead>
           <tbody>
             {rows.map(r => (
-              <tr key={r.id} className="border-t border-slate-200 dark:border-slate-800">
-                <td className="p-3">#{r.id} — {fmtDate(r.trip_date)}</td>
+              <tr key={r.trip_no ?? r.id} className="border-t border-slate-200 dark:border-slate-800">
+                <td className="p-3">#{r.trip_no ?? r.id} — {fmtDate(r.trip_date)}</td>
                 <td className="p-3">{relName(r.customers)}</td>
                 <td className="p-3">{relName(r.services)}</td>
                 <td className="p-3">{relName(r.vehicles)}</td>

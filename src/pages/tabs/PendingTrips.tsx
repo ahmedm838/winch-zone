@@ -33,7 +33,7 @@ export default function PendingTrips() {
     setMsg(null);
     const { data, error } = await supabase
       .from("trips")
-      .select("id,trip_date,pickup_location,dropoff_location,price_per_trip,status, customers(name), services(name), vehicles(name), payments(name)")
+      .select("id,trip_no,trip_date,pickup_location,dropoff_location,price_per_trip,status, customers(name), services(name), vehicles(name), payments(name)")
       .eq("status", "pending")
       .order("id", { ascending: false });
     if (error) return setMsg(error.message);
@@ -80,8 +80,8 @@ export default function PendingTrips() {
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.id} className="border-t border-slate-200 dark:border-slate-800">
-                <td className="p-3">#{r.id} — {fmtDate(r.trip_date)}</td>
+              <tr key={r.trip_no ?? r.id} className="border-t border-slate-200 dark:border-slate-800">
+                <td className="p-3">#{r.trip_no ?? r.id} — {fmtDate(r.trip_date)}</td>
                 <td className="p-3">{relName(r.customers)}</td>
                 <td className="p-3">{relName(r.services)}</td>
                 <td className="p-3">{relName(r.vehicles)}</td>

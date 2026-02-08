@@ -65,7 +65,7 @@ export default function PendingTrips() {
 
       <div className="overflow-auto border border-slate-200 dark:border-slate-800 rounded-2xl">
         <table className="min-w-[1100px] w-full text-sm">
-          <thead className="bg-slate-50 dark:bg-slate-900">
+          <thead className="bg-slate-50 text-slate-700 dark:bg-slate-900 dark:text-slate-100">
             <tr className="text-left">
               <th className="p-3">Trip</th>
               <th className="p-3">Customer</th>

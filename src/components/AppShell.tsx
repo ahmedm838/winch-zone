@@ -28,7 +28,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const visible = role ? tabs.filter((t) => t.roles.includes(role)) : [];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950">
+    <div className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <header className="sticky top-0 z-10 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-950/90 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
           <Link to="/dashboard" className="flex items-center gap-3">
@@ -41,7 +41,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <button
-              className="rounded-xl px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-white dark:bg-slate-900"
+              className="rounded-xl px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900"
               onClick={async () => {
                 await signOut();
                 nav("/");
@@ -55,7 +55,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       <div className="mx-auto max-w-6xl px-4 py-6 grid grid-cols-1 md:grid-cols-[260px_1fr] gap-6">
-        <aside className="border border-slate-200 dark:border-slate-800 rounded-2xl p-3 h-fit bg-white dark:bg-slate-950">
+        <aside className="border border-slate-200 dark:border-slate-800 rounded-2xl p-3 h-fit bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
           <div className="px-2 py-2 text-xs text-slate-500">Dashboard</div>
           <nav className="flex flex-col">
             {visible.map((t) => (
@@ -66,7 +66,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   "rounded-xl px-3 py-2 text-sm " +
                   (isActive
                     ? "bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100"
-                    : "text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white dark:bg-slate-900")
+                    : "text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-900")
                 }
               >
                 {t.label}
@@ -75,7 +75,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </nav>
         </aside>
 
-        <main className="border border-slate-200 dark:border-slate-800 rounded-2xl p-4 md:p-6 bg-white dark:bg-slate-950">
+        <main className="border border-slate-200 dark:border-slate-800 rounded-2xl p-4 md:p-6 bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
           {children}
         </main>
       </div>

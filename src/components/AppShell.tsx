@@ -41,7 +41,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <button
-              className="rounded-xl px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900"
+              className="rounded-xl px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-white dark:bg-slate-900"
               onClick={async () => {
                 await signOut();
                 nav("/");
@@ -66,7 +66,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   "rounded-xl px-3 py-2 text-sm " +
                   (isActive
                     ? "bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100"
-                    : "text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-900")
+                    : "text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white dark:bg-slate-900")
                 }
               >
                 {t.label}

@@ -64,11 +64,11 @@ export default function UsersRoles() {
                   <td className="p-3">
                     <div className="flex gap-2">
                       <button disabled={busy} onClick={() => setRole(r.user_id, 2)}
-                        className="rounded-xl px-3 py-2 text-xs border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900">
+                        className="rounded-xl px-3 py-2 text-xs border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-white dark:bg-slate-900">
                         Set User
                       </button>
                       <button disabled={busy} onClick={() => setRole(r.user_id, 1)}
-                        className="rounded-xl px-3 py-2 text-xs bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
+                        className="rounded-xl px-3 py-2 text-xs bg-white dark:bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
                         Set Admin
                       </button>
                     </div>

@@ -98,7 +98,7 @@ useEffect(() => {
               className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2 text-slate-900 dark:text-slate-100" />
           </div>
           {msg ? <div className="text-sm text-slate-700 dark:text-slate-200">{msg}</div> : null}
-          <button disabled={busy || !sessionReady} className="w-full rounded-xl px-3 py-2 text-sm bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
+          <button disabled={busy || !sessionReady} className="w-full rounded-xl px-3 py-2 text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
             {busy ? "Please wait..." : "Update password"}
           </button>
         </form>

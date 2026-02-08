@@ -113,8 +113,8 @@ PriceFormatted: fmtMoney(r.price_per_trip ?? 0),
             className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2" />
         </div>
         <div className="flex items-end gap-2">
-          <button onClick={load} className="rounded-xl px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900">Load</button>
-          <button onClick={exportExcel} disabled={!rows.length} className="rounded-xl px-3 py-2 text-sm bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">Export Excel</button>
+          <button onClick={load} className="rounded-xl px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-white dark:bg-slate-900">Load</button>
+          <button onClick={exportExcel} disabled={!rows.length} className="rounded-xl px-3 py-2 text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">Export Excel</button>
         </div>
       </div>
 

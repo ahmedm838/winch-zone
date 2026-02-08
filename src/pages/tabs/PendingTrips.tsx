@@ -96,7 +96,7 @@ export default function PendingTrips() {
                 <td className="p-3"></td>
                 <td className="p-3">
                   <button disabled={busy} onClick={() => approve(r.id)}
-                    className="rounded-xl px-3 py-2 text-xs bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
+                    className="rounded-xl px-3 py-2 text-xs bg-white dark:bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
                     Approve
                   </button>
                 </td>

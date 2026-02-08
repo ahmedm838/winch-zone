@@ -133,7 +133,7 @@ useEffect(() => {
           <option value="">Select trip...</option>
           {trips.map(t => <option key={t.id} value={t.id}>#{t.id} — {fmtDate(t.trip_date)} — {t.status.toUpperCase()}</option>)}
         </select>
-        <button onClick={refreshTrips} className="rounded-xl px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900">Refresh</button>
+        <button onClick={refreshTrips} className="rounded-xl px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-white dark:bg-slate-900">Refresh</button>
       </div>
 
       {msg ? <div className="text-sm text-slate-700 dark:text-slate-200">{msg}</div> : null}
@@ -308,7 +308,7 @@ useEffect(() => {
           setBusy(false);
         }
       }}
-      className="rounded-xl px-4 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 disabled:opacity-60"
+      className="rounded-xl px-4 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-white dark:bg-slate-900 disabled:opacity-60"
     >
       Upload photos
     </button>
@@ -317,7 +317,7 @@ useEffect(() => {
 </div>
 
           <button disabled={!canSave} onClick={save}
-            className="rounded-xl px-4 py-2 text-sm bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
+            className="rounded-xl px-4 py-2 text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60">
             {busy ? "Saving..." : "Save changes"}
           </button>
         </div>

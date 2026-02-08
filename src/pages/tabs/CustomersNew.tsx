@@ -137,7 +137,7 @@ export default function CustomersNew() {
       <button
         disabled={busy}
         onClick={onSave}
-        className="rounded-xl px-4 py-2 text-sm bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60"
+        className="rounded-xl px-4 py-2 text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white hover:opacity-90 disabled:opacity-60"
       >
         {busy ? "Saving..." : "Save customer"}
       </button>

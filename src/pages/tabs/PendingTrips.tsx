@@ -68,7 +68,8 @@ export default function PendingTrips() {
         <table className="min-w-[1100px] w-full text-sm">
           <thead className="bg-slate-50 text-slate-700 dark:bg-slate-900 dark:text-slate-100">
             <tr className="text-left">
-              <th className="p-3">Trip</th>
+              <th className="p-3">Trip No.</th>
+              <th className="p-3">Date</th>
               <th className="p-3">Customer</th>
               <th className="p-3">Service</th>
               <th className="p-3">Vehicle</th>
@@ -82,7 +83,8 @@ export default function PendingTrips() {
           <tbody>
             {rows.map((r) => (
               <tr key={r.trip_no ?? r.id} className="border-t border-slate-200 dark:border-slate-800">
-                <td className="p-3">#{r.trip_no ?? r.id} — {fmtDate(r.trip_date)}</td>
+                <td className="p-3">{r.trip_no ?? r.id}</td>
+                <td className="p-3">{fmtDate(r.trip_date)}</td>
                 <td className="p-3">{relName(r.customers)}</td>
                 <td className="p-3">{relName(r.services)}</td>
                 <td className="p-3">{relName(r.vehicles)}</td>
@@ -103,7 +105,7 @@ export default function PendingTrips() {
                 </td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className="p-4 text-slate-500" colSpan={8}>No pending trips.</td></tr> : null}
+            {!rows.length ? <tr><td className="p-4 text-slate-500" colSpan={9}>No pending trips.</td></tr> : null}
           </tbody>
         </table>
       </div>

@@ -131,7 +131,7 @@ useEffect(() => {
         <select value={selectedId} onChange={(e)=>setSelectedId(e.target.value ? Number(e.target.value) : "")}
           className="w-full md:max-w-lg rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
           <option value="">Select trip...</option>
-          {trips.map(t => <option key={t.id} value={t.id}>#{t.id} — {fmtDate(t.trip_date)} — {t.status.toUpperCase()}</option>)}
+          {trips.map(t => <option key={t.id} value={t.id}>{t.trip_no ?? t.id} — {fmtDate(t.trip_date)} — {t.status.toUpperCase()}</option>)}
         </select>
         <button onClick={refreshTrips} className="rounded-xl px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-white dark:bg-slate-900">Refresh</button>
       </div>

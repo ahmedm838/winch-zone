@@ -133,7 +133,7 @@ PriceFormatted: fmtMoney(r.price_per_trip ?? 0),
           <tbody>
             {rows.map(r => (
               <tr key={r.trip_no ?? r.id} className="border-t border-slate-200 dark:border-slate-800">
-                <td className="p-3">#{r.trip_no ?? r.id}</td>
+                <td className="p-3">{r.trip_no ?? r.id}</td>
                 <td className="p-3">{fmtDate(r.trip_date)}</td>
                 <td className="p-3">{relName(r.customers)}</td>
                 <td className="p-3">{relName(r.services)}</td>

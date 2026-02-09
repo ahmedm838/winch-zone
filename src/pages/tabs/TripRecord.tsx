@@ -97,6 +97,13 @@ if (pu.length || dof.length) {
 }
 
 
+// Notify admins by email (best-effort; do not block saving if it fails)
+try {
+  await supabase.functions.invoke("notify-admins", { body: { trip_id: tripId } });
+} catch (e) {
+  console.warn("notify-admins failed", e);
+}
+
       setMsg("Trip recorded (Pending).");
       setTripDate(""); setCustomerId(""); setServiceId(""); setVehicleId("");
       setPickup(""); setDropoff(""); setPrice(""); setPaymentId("");

@@ -6,8 +6,7 @@ import { fetchCustomers, fetchMasters, Customer, SimpleRow } from "./_shared";
 import { fmtDate, fmtMoney } from "../../lib/format";
 import { getMyRole } from "../../lib/auth";
 
-type CollectionRow = { id: number;
-  trip_no?: string | null; name: string };
+type CollectionRow = { id: number; name: string };
 
 type TripRow = {
   id: number;
@@ -16,18 +15,16 @@ type TripRow = {
   status: "pending" | "approved";
   customer_id: string;
   service_id: number;
-  trip_no?: string | null;
   vehicle_id: number;
-  trip_no?: string | null;
   pickup_location: string;
   dropoff_location: string;
   price_per_trip: number;
   payment_id: number;
-  trip_no?: string | null;
   collection_id: number | null;
   pickup_photos?: string[];
   dropoff_photos?: string[];
 };
+
 
 export default function TripEdit() {
   const [masters, setMasters] = useState<{ services: SimpleRow[]; vehicles: SimpleRow[]; payments: SimpleRow[] } | null>(null);

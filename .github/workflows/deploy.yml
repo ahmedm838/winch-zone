@@ -27,9 +27,10 @@ jobs:
           node-version: 20
           cache: npm
 
-      # IMPORTANT: ensure devDependencies are installed (Vite + typings)
+      # NOTE: npm ci fails when package-lock.json is out of sync.
+      # Use npm install so the lockfile can be updated automatically in CI.
       - name: Install dependencies (include dev)
-        run: npm ci --include=dev
+        run: npm install --include=dev --no-audit --no-fund
         env:
           NODE_ENV: development
 

@@ -21,16 +21,6 @@ function normalizeSupabaseHash() {
 
 normalizeSupabaseHash();
 
-// Prevent embedding in external websites (clickjacking / iframe). If embedded, break out to top.
-try {
-  if (window.top && window.top !== window.self) {
-    window.top.location.href = window.location.href;
-  }
-} catch {
-  // If cross-origin prevents access, redirect the current window to itself (best effort)
-  window.location.href = window.location.href;
-}
-
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

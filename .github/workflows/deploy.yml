@@ -27,10 +27,11 @@ jobs:
           node-version: 20
           cache: npm
 
+      # IMPORTANT: ensure devDependencies are installed (Vite + typings)
       - name: Install dependencies (include dev)
-        run: |
-          npm config set production false
-          npm ci --include=dev
+        run: npm ci --include=dev
+        env:
+          NODE_ENV: development
 
       - name: Build
         run: npm run build
